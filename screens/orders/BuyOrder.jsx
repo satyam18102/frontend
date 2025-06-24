@@ -51,14 +51,11 @@ export default function BuyOrder() {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <Text style={{textAlign:'center',fontSize:20,marginBottom:20,marginTop:20,fontWeight:'bold'}}>{item.company}</Text>
-        {/* Quantity Row */}
         <View style={styles.inputRow}>
           <TouchableOpacity
             style={styles.dropdownContainer}
-            // Simulate dropdown interaction
           >
             <Text style={styles.dropdownText}>Qty </Text>
-            {/* Simple down arrow icon using Text for demonstration */}
             <Text style={styles.arrowIcon}></Text>
           </TouchableOpacity>
           <TextInput
@@ -67,7 +64,7 @@ export default function BuyOrder() {
             value={quantity}
             placeholder="Enter quantity"
             keyboardType="numeric"
-            selectionColor="#B2F7E6" // Placeholder for cursor color as seen in image
+            selectionColor="#B2F7E6" // Placeholder for cursor color
           />
         </View>
 
@@ -75,10 +72,8 @@ export default function BuyOrder() {
         <View style={styles.inputRow}>
           <TouchableOpacity
             style={styles.dropdownContainer}
-             // Simulate dropdown interaction
           >
             <Text style={styles.dropdownText}>Price</Text>
-            {/* Simple down arrow icon using Text for demonstration */}
             <Text style={styles.arrowIcon}></Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.priceButton}>
@@ -97,7 +92,7 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
     backgroundColor: '#fff', 
-    marginTop:-500,// White background
+    marginTop:-500,
   },
   container: {
     flex: 1,
@@ -108,7 +103,7 @@ const styles = StyleSheet.create({
   inputRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 25, // Increased spacing between rows
+    marginBottom: 25,
   },
   dropdownContainer: {
     flexDirection: 'row',
@@ -136,27 +131,27 @@ const styles = StyleSheet.create({
     color: '#333',
   },
   quantityInput: {
-    flex: 1, // Takes up remaining space
+    flex: 1,
     height: 50,
-    backgroundColor: '#E6FFF5', // Light green background from image
+    backgroundColor: '#E6FFF5',
     borderRadius: 8,
     paddingHorizontal: 15,
     fontSize: 18,
     color: '#333',
-    borderColor: '#B2F7E6', // Border color from image
+    borderColor: '#B2F7E6',
     borderWidth: 1,
   },
   priceButton: {
-    flex: 1, // Takes up remaining space
+    flex: 1,
     height: 50,
-    backgroundColor: '#F0F0F0', // Grey background from image
+    backgroundColor: '#F0F0F0',
     borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
   },
   priceButtonText: {
     fontSize: 18,
-    color: '#777', // Grey text color from image
+    color: '#777',
     fontWeight: '500',
   },
 });

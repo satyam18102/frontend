@@ -36,7 +36,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: '120',
     width: '180',
-    // flexDirection: 'row',
     backgroundColor: "#fff",
     borderRadius: 10,
     elevation: 5,

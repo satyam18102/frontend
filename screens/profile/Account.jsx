@@ -22,7 +22,6 @@ export default function Account ({user}) {
           containerStyle={styles.avatar}
         />
         <Text style={styles.name}>Satyam Sinha</Text>
-        {/* <Text style={styles.dateText}>Growing since {'2023'}</Text> */}
       </View>
 
       <View style={styles.balanceContainer}>

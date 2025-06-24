@@ -42,36 +42,6 @@ export default function Details() {
 	}
 }
 
-// useEffect(()=>{
-//   fetchData();
-// },[])
-
-// useEffect(() => {
-//   getData();
-// }, [values]);
-
-
-async function getData() {
-    try {
-        const priceArray = values.map(([_, price]) => parseFloat(price));
-        console.log(priceArray)
-        setPrice(priceArray.slice(12,20))
-        console.log(price)
-        const formattedDates = values.map(([dateStr]) => {
-  const [year, month, day] = dateStr.split("-");
-  
-  return `${day}/${month}`;
-});
-
-console.log(formattedDates);
-setDates(formattedDates.slice(12,20));
-	} catch (error) {
-		console.error(error);
-	}
-}
-
-
-
 
   return (
     <ScrollView style={{backgroundColor: '#fbfbffb' }}>

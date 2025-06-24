@@ -54,10 +54,6 @@ export default function Orders() {
             </View>
 
               {allOrders.map((stock, index) => {
-              {/* // const curValue = stock.price * stock.qty;
-              // const isProfit = curValue - stock.avg * stock.qty >= 0;
-              // const profClass = isProfit ? styles.profit : styles.loss;
-              // const dayClass = stock.isLoss ? styles.loss : styles.profit; */}
 
               return (
                 <TouchableOpacity key={index} onPress={() => showDetails(stock)}>
@@ -98,9 +94,6 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     padding: 6,
-    // borderColor: '#ccc',
-    // borderWidth: 0.5,
-    // width : '100%',
     height: 50,
     marginTop : 10,
   },

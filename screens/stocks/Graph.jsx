@@ -47,22 +47,12 @@ export default function Graph(props) {
   useEffect(() => {
     fetchData();
   }, []);
-  // const onRefresh = useCallback(() => {
-  //   setRefreshing(true);
-  //   // Simulate a data fetch
-  //   setTimeout(() => {// Update data
-  //     setRefreshing(false);
-  //   }, 2000);
-  // }, []);
 
   
   
   return (
-      // <ScrollView refreshControl={
-      //   <RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>}>
       <ScrollView>
     <View>
-      {/* <Text style={{ textAlign: "center", marginBottom: 10 }}>{props.name} Price Chart</Text> */}
       <LineChart
         data={chartData}
         thickness={2}

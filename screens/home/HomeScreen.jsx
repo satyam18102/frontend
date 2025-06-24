@@ -1,10 +1,8 @@
 import React from "react";
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 import NseMostActive from "../stocks/NseMostActive";
-import BseMostActive from "../stocks/BseMostActive";
 import { Searchbar } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
-import Graph from "../stocks/Graph";
 import WatchNav from "./WatchNav";
 
 export default function HomeScreen() {

@@ -70,7 +70,6 @@ export default function Holdings() {
         </ScrollView>
       </View>
 
-      {/* Modal Bottom Sheet */}
       <Modal transparent visible={visible} animationType="none">
         <TouchableOpacity style={styles.overlay} onPress={hideDetails} />
         <Animated.View style={[styles.sheet, { transform: [{ translateY }] }]}>
@@ -82,7 +81,6 @@ export default function Holdings() {
               <Text style={styles.detail}>LTP: ₹{selectedStock.price}</Text>
               <Text style={styles.detail}>Net: {selectedStock.net}</Text>
               <Text style={[styles.detail]}>Day: {selectedStock.day}</Text>
-              {/* You can add chart or graph components here */}
             </>
           )}
         </Animated.View>
@@ -98,9 +96,6 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     padding: 6,
-    // borderColor: '#ccc',
-    // borderWidth: 0.5,
-    // width : '100%',
     height: 50,
     marginTop : 10,
   },

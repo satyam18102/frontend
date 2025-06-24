@@ -34,12 +34,6 @@ async function fetchData() {
     Alert.alert(error);
 	}
 }
-// React.useEffect(() => {
-//     const timer = setTimeout(() => {
-//       fetchData();
-//     }, 2500);
-//     return () => clearTimeout(timer);
-//   }, []);
 
 
       const isProfit = response.percentChange>=0 ? styles.profit : styles.loss;
