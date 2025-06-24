@@ -30,15 +30,6 @@ export default function Details() {
   }
   };
 
-  async function fetchData() {
-    try {
-		const response = await axios.request(options);
-    const temp = response.data.datasets[0].values;
-        setValues(temp)
-	} catch (error) {
-		console.error(error);
-	}
-}
 
 
   return (
