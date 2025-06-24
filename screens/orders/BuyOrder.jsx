@@ -1,29 +1,162 @@
-import { Text, ScrollView, StyleSheet, View } from "react-native";
-import { TextInput } from "react-native-paper";
+import React, { useState } from 'react';
+import {
+  SafeAreaView,
+  StyleSheet,
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Alert,
+} from 'react-native';
+import { Button } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
+import { useRoute } from '@react-navigation/native';
+import axios from 'axios';
 
-export default function BuyOrder () {
-    return(
-        <ScrollView style={styles.container}>
-            <View style={{textAlign:'right', justifyContent:'flex-end'}}>
-                <TextInput
-                style={styles.input}
-                mode="outlined"
-                label={'Quantity'}
-                />
-            </View>
-        </ScrollView>
-    );
+
+// Main App component
+export default function BuyOrder() {
+    const route = useRoute();
+      const {item} = route.params;
+    const navigation = useNavigation();
+  const [quantity, setQuantity] = useState('');
+
+
+  function handlePurchase () {
+    const userData = {
+      name: item.company,
+      qty: quantity,
+      price: item.price,
+      avg: item.price,
+      owner: 'CP'    
+    };
+    axios.post('http://192.168.234.232:8080/newOrder',userData).then((res)=>{
+        console.log(userData)
+      if(res.data.status === 'ok'){
+        Alert.alert("Order Successfull")
+        navigation.replace('MainApp');
+      }else{
+        console.log('Login failed:', res.data.error);
+        alert('Invalid credentials');
+      }
+    }).catch((error) => {
+      console.error('Error during login:', error);
+      alert('An error occurred during login. Please try again.');
+    });
+  };
+
+
+
+  return (
+    <SafeAreaView style={styles.safeArea}>
+      <View style={styles.container}>
+        <Text style={{textAlign:'center',fontSize:20,marginBottom:20,marginTop:20,fontWeight:'bold'}}>{item.company}</Text>
+        {/* Quantity Row */}
+        <View style={styles.inputRow}>
+          <TouchableOpacity
+            style={styles.dropdownContainer}
+            // Simulate dropdown interaction
+          >
+            <Text style={styles.dropdownText}>Qty </Text>
+            {/* Simple down arrow icon using Text for demonstration */}
+            <Text style={styles.arrowIcon}></Text>
+          </TouchableOpacity>
+          <TextInput
+            style={styles.quantityInput}
+            onChangeText={setQuantity}
+            value={quantity}
+            placeholder="Enter quantity"
+            keyboardType="numeric"
+            selectionColor="#B2F7E6" // Placeholder for cursor color as seen in image
+          />
+        </View>
+
+        {/* Price Row */}
+        <View style={styles.inputRow}>
+          <TouchableOpacity
+            style={styles.dropdownContainer}
+             // Simulate dropdown interaction
+          >
+            <Text style={styles.dropdownText}>Price</Text>
+            {/* Simple down arrow icon using Text for demonstration */}
+            <Text style={styles.arrowIcon}></Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.priceButton}>
+            <Text style={styles.priceButtonText}>At Market Price</Text>
+          </TouchableOpacity>
+        </View>
+        <Button style={styles.buyBtn} mode="contained" onPress={() => handlePurchase()}>
+                      <Text>BUY</Text>
+                    </Button>
+      </View>
+    </SafeAreaView>
+  );
 }
 
-
 const styles = StyleSheet.create({
-    container:{
-        flex:1,
-        flexDirection:'row',
-        padding:20,
-    },
-    input:{
-        textAlign:'center',
-        width: 150,
-    }
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#fff', 
+    marginTop:-500,// White background
+  },
+  container: {
+    flex: 1,
+    padding: 20,
+    justifyContent: 'center',
+    backgroundColor: '#fff',
+  },
+  inputRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 25, // Increased spacing between rows
+  },
+  dropdownContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginRight: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 5,
+    borderRadius: 8,
+  },
+  buyBtn: {
+    backgroundColor: '#04b488',
+    padding: 10,
+    borderRadius: 6,
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  dropdownText: {
+    fontSize: 18,
+    color: '#333',
+    fontWeight: '500',
+  },
+  arrowIcon: {
+    fontSize: 18,
+    marginLeft: 5,
+    color: '#333',
+  },
+  quantityInput: {
+    flex: 1, // Takes up remaining space
+    height: 50,
+    backgroundColor: '#E6FFF5', // Light green background from image
+    borderRadius: 8,
+    paddingHorizontal: 15,
+    fontSize: 18,
+    color: '#333',
+    borderColor: '#B2F7E6', // Border color from image
+    borderWidth: 1,
+  },
+  priceButton: {
+    flex: 1, // Takes up remaining space
+    height: 50,
+    backgroundColor: '#F0F0F0', // Grey background from image
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  priceButtonText: {
+    fontSize: 18,
+    color: '#777', // Grey text color from image
+    fontWeight: '500',
+  },
 });

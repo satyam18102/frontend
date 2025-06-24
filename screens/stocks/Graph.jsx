@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { View, Dimensions, Text } from "react-native";
+import React, { useEffect, useState, useCallback } from "react";
+import { View, Dimensions, Text, RefreshControl, ScrollView } from "react-native";
 import axios from "axios";
 import { LineChart } from "react-native-gifted-charts";
 
 export default function Graph(props) {
   const [chartData, setChartData] = useState([]);
   const [dates, setDates] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
+
 
   const options = {
     method: "GET",
@@ -45,8 +47,20 @@ export default function Graph(props) {
   useEffect(() => {
     fetchData();
   }, []);
+  // const onRefresh = useCallback(() => {
+  //   setRefreshing(true);
+  //   // Simulate a data fetch
+  //   setTimeout(() => {// Update data
+  //     setRefreshing(false);
+  //   }, 2000);
+  // }, []);
+
+  
   
   return (
+      // <ScrollView refreshControl={
+      //   <RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>}>
+      <ScrollView>
     <View>
       {/* <Text style={{ textAlign: "center", marginBottom: 10 }}>{props.name} Price Chart</Text> */}
       <LineChart
@@ -68,6 +82,6 @@ export default function Graph(props) {
         startOpacity={0.4}
         endOpacity={0.1}
       />
-    </View>
+    </View></ScrollView>
   );
 }

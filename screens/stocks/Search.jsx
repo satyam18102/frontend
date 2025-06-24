@@ -16,7 +16,8 @@ export default function Search ()  {
   url: 'https://indian-stock-exchange-api2.p.rapidapi.com/stock',
   params: {name: searchQuery},
   headers: {
-    'x-rapidapi-key': 'fee4787a3fmshf2c968dc7e96548p1567f7jsn0d2c8550a6ca',
+    // 'x-rapidapi-key': 'fee4787a3fmshf2c968dc7e96548p1567f7jsn0d2c8550a6ca',
+    'x-rapidapi-key': '18b9ba3ca9msh41b67661d5a89fdp152144jsn18b8312cb79d',
     'x-rapidapi-host': 'indian-stock-exchange-api2.p.rapidapi.com'
   }
 };

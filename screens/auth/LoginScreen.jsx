@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
@@ -10,7 +10,7 @@ export default function LoginScreen ()  {
   const navigation = useNavigation();
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword, setShowPassword] = React.useState(true);
 
 
   function handleLogin () {
@@ -18,7 +18,7 @@ export default function LoginScreen ()  {
       email: email,
       password: password,
     };
-    axios.post('http://192.168.29.61:8080/login',userData).then((res)=>{
+    axios.post('http://192.168.234.232:8080/login',userData).then((res)=>{
       if(res.data.status === 'ok'){
         navigation.replace('MainApp');
       }else{
@@ -55,9 +55,11 @@ export default function LoginScreen ()  {
           value={password}
           onChangeText={password => setPassword(password)}/>
       <Text style={{textAlign: 'right',marginBottom:5, textDecorationLine:'underline'}}>Forgot Password?</Text>
+      <TouchableOpacity onPress={()=>{handleLogin()}}>
       <Button style={styles.button} mode="contained" buttonColor='#219ebc' onPress={() => handleLogin()}>
         Login
       </Button>
+      </TouchableOpacity>
       <Text style={{textAlign: 'center', marginTop: 10}}>OR</Text>
       <Button style={styles.button}  mode="contained" buttonColor='#219ebc' onPress={() => navigation.navigate('Signup')}>
         Signup

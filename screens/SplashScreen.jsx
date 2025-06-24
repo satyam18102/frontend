@@ -13,20 +13,19 @@ const SplashScreen = ({navigation}) => {
     <View style={styles.container}> 
       {/* App Header */}
       <View style={styles.header}>
-        <Text style={styles.headerText}>Groww</Text>
+        <Text style={styles.headerText}>Finstox</Text>
       </View>
 
       {/* App Logo */}
       <View style={styles.logoBox}>
-        <Image source='../assets/logo1.jpg' style={styles.logo} />
+        <Image source={require('../assets/logo1.jpg')} style={styles.logo} />
       </View>
 
       {/* App Name */}
-      <Text style={styles.appName}>Groww</Text>
+      <Text style={styles.appName}>Finstox</Text>
 
       {/* Taglines */}
       <View style={styles.taglines}>
-        <Text style={styles.tagline}>Apna Lund sabko bada lagta hai !!</Text>
         <Text style={styles.tagline}>Investing made simple</Text>
         {/* <br></br> */}
         {/* <br></br> */}
@@ -39,7 +38,7 @@ const SplashScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000000',
+    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 20,
@@ -54,10 +53,10 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 22,
     fontWeight: 'bold',
-    color: '#ffff',
+    color: '#000',
   },
   logoBox: {
-    backgroundColor: '#fff',
+    backgroundColor: '#000',
     padding: 12,
     borderRadius: 60,
     elevation: 5,
@@ -67,25 +66,27 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     borderRadius: 40,
+    backgroundColor:'#fff'
   },
   appName: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#fff',
+    color: '#000',
     marginBottom: 10,
   },
   taglines: {
     marginTop: 10,
+    fontSize: 20,
   },
   tagline: {
     fontSize: 15,
-    color: '#ffff',
+    color: '#000',
     textAlign: 'center',
     marginBottom: 5,
   },
   tagline2: {
-    fontSize: 15,
-    color: '#ffff',
+    fontSize: 25,
+    color: '#000',
     textAlign: 'center',
     marginBottom: 5,
     marginTop: 5,

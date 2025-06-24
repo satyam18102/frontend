@@ -26,8 +26,8 @@ export default function Details() {
       filter: 'price'
   },
   headers: {
-      // 'x-rapidapi-key': '18b9ba3ca9msh41b67661d5a89fdp152144jsn18b8312cb79d',
-      'x-rapidapi-key': 'fee4787a3fmshf2c968dc7e96548p1567f7jsn0d2c8550a6ca',
+      'x-rapidapi-key': '18b9ba3ca9msh41b67661d5a89fdp152144jsn18b8312cb79d',
+      // 'x-rapidapi-key': 'fee4787a3fmshf2c968dc7e96548p1567f7jsn0d2c8550a6ca',
       'x-rapidapi-host': 'indian-stock-exchange-api2.p.rapidapi.com'
   }
   };
@@ -86,7 +86,7 @@ setDates(formattedDates.slice(12,20));
             </View>
         </View>
         <View style={{marginTop:10,flexDirection: 'row', justifyContent: 'space-between'}}>
-            <Button style={styles.buyBtn} mode="contained" onPress={() => navigation.navigate('Buy')}>
+            <Button style={styles.buyBtn} mode="contained" onPress={() => navigation.navigate('Buy',{ item: item })}>
               <Text>BUY</Text>
             </Button>
             <Button style={styles.sellBtn} mode="contained" onPress={() => navigation.navigate('Sell')}>

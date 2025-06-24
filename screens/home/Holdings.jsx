@@ -12,9 +12,10 @@ export default function Holdings() {
   const translateY = useRef(new Animated.Value(Dimensions.get("window").height)).current;
 
   useEffect(() => {
-    axios.get('http://192.168.29.61:8080/allholdings')
+    axios.get('http://192.168.234.232:8080/allholdings')
       .then(response => {
         setAllHoldings(response.data);
+        // console.log(response.data);
       })
       .catch(() => {
         Alert.alert('Failed to fetch holdings. Please try again later.');
@@ -75,7 +76,7 @@ export default function Holdings() {
         <Animated.View style={[styles.sheet, { transform: [{ translateY }] }]}>
           {selectedStock && (
             <>
-              <Text style={styles.sheetTitle}>{selectedStock.name} Details</Text>
+              <Text style={styles.sheetTitle}>{selectedStock.name}</Text>
               <Text style={styles.detail}>Quantity: {selectedStock.qty}</Text>
               <Text style={styles.detail}>Average Cost: ₹{selectedStock.avg}</Text>
               <Text style={styles.detail}>LTP: ₹{selectedStock.price}</Text>
