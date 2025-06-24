@@ -8,8 +8,6 @@ import { useEffect, useState } from "react";
 
 export default function Details() {
   const [values,setValues]=useState([]);
-      const [price,setPrice]=useState([]);
-      const [dates,setDates]=useState([]);
   const route = useRoute();
   const {item} = route.params;
   const navigation = useNavigation();
