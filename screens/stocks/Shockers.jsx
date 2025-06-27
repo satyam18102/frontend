@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react';
-import { View, Text, Button, StyleSheet, Image, ScrollView, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View, Text, Button, StyleSheet, Image, ScrollView, FlatList, TouchableOpacity,ActivityIndicator } from 'react-native';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 
 
-export default function NseMostActive() {
+export default function Shockers() {
 
 const navigation = useNavigation();
     const [response, setResponse ] = React.useState([]);
     const [loading, setLoading ] = React.useState(true);
 const options = {
   method: 'GET',
-  url: 'https://indian-stock-exchange-api2.p.rapidapi.com/NSE_most_active',
+  url: 'https://indian-stock-exchange-api2.p.rapidapi.com/price_shockers',
   headers: {
     'x-rapidapi-key': '27b9a3dfabmshad3df316b8e8c26p1cb953jsn058b23c43f16',
     'x-rapidapi-host': 'indian-stock-exchange-api2.p.rapidapi.com'
@@ -19,15 +19,15 @@ const options = {
 };
 
 async function fetchData() {
-	try {
+    try {
     console.log('Fetching data from NSE Most Active Stocks API...');
-		const response = await axios.request(options);
-    setResponse(response.data);
-		console.log(response.data);
+        const response = await axios.request(options);
+    setResponse(response.data.NSE_PriceShocker);
+        console.log(response.data);
     setLoading(false)
-	} catch (error) {
-		console.error(error);
-	}
+    } catch (error) {
+        console.error(error);
+    }
 }
 useEffect(() => {
   fetchData();
@@ -37,7 +37,7 @@ useEffect(() => {
 if(loading){
   return(
     <View>
-      <ActivityIndicator size="large" color="#0000ff" style={{ marginVertical: 10 }} />
+        <ActivityIndicator size="large" color="#0000ff" style={{ marginVertical: 10 }} />
       <Text style={{fontSize:25,textAlign:'center',marginTop:25,fontWeight:'bold'}}>Loading</Text>
     </View>
   )
@@ -50,21 +50,20 @@ if(loading){
             <View>
               {response.map((stock, index) => {
                 const profClass = stock.net_change>=0 ? styles.profit : styles.loss;
-                const exchange = stock.ticker.includes(".NS") ? "NSE" : "BSE";
-                const isProfit = stock.net_change>=0 ? styles.profit : styles.loss;
-                const isLoss = stock.net_change>=0 ? '+' : '';
+                const isProfit = stock.netChange>=0 ? styles.profit : styles.loss;
+                const isLoss = stock.netChange>=0 ? '+' : '';
     
                 return (
                     <View key={index} style={{borderBottomWidth: 1,paddingBottom: 15,borderBottomColor: '#ccc',}}>
-                      <TouchableOpacity onPress={() => navigation.navigate('Details', { item: stock })}>
+                      <TouchableOpacity onPress={() => navigation.navigate('ShockersDetails', { item: stock })}>
                   <View style={{marginTop: 15, flexDirection: 'row', justifyContent: 'space-between'}}>
                           <View style={styles.cell}>
-                              <Text style={{fontSize:16, fontFamily:'Poppins-Regular' , marginTop:5,}} >{stock.company.toUpperCase()}</Text>
-                              <Text style={{color:'#444', marginTop: 10,}} >{exchange}</Text>
+                              <Text style={{fontSize:16, fontFamily:'Poppins-Regular' , marginTop:5,}} >{stock.displayName.toUpperCase()}</Text>
+                              <Text style={{color:'#444', marginTop: 10,}} >BSE</Text>
                           </View>
                           <View>
                               <Text style={[styles.cell2]}>{stock.price}</Text>
-                <Text style={[{textAlign:'left', display: 'flex', fontSize: 14},isProfit]} >{isLoss}{stock.net_change}({isLoss}{stock.percent_change}%)</Text>
+                <Text style={[{textAlign:'left', display: 'flex', fontSize: 14},isProfit]} >{isLoss}{stock.netChange}({isLoss}{stock.percentChange}%)</Text>
                           </View>
                   </View>
                   </TouchableOpacity>

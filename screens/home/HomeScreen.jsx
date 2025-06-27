@@ -4,12 +4,15 @@ import NseMostActive from "../stocks/NseMostActive";
 import { Searchbar } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import WatchNav from "./WatchNav";
+import { ThemeContext } from "../../ThemeContext";
+import Tab from "./Tab";
 
 export default function HomeScreen() {
+  const { isDarkMode } = React.useContext(ThemeContext);
   const navigation = useNavigation();
 
   return (
-    <ScrollView vertical style={{ flex: 1, backgroundColor: '#ffffff' }}>
+    <ScrollView vertical style={{ flex: 1 }}>
       <TouchableOpacity onPress={() => navigation.navigate('Search')}>
       <View>
         <Searchbar
@@ -19,13 +22,14 @@ export default function HomeScreen() {
       </View>
       </TouchableOpacity>
       <WatchNav/>
-      <NseMostActive/>
+      <Tab/>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor:'#000',
     fontFamily:'Lato-Regular',
     flex: 1,
     justifyContent: 'center',

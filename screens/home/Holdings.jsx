@@ -4,18 +4,20 @@ import {
   Alert, Modal, TouchableOpacity, Animated, Dimensions
 } from 'react-native';
 import axios from 'axios';
+import { ThemeContext } from '../../ThemeContext';
 
 export default function Holdings() {
+  const { isDarkMode } = React.useContext(ThemeContext);
   const [allHoldings, setAllHoldings] = useState([]);
   const [selectedStock, setSelectedStock] = useState(null);
   const [visible, setVisible] = useState(false);
   const translateY = useRef(new Animated.Value(Dimensions.get("window").height)).current;
+  const isDark = isDarkMode ? styles.dark : styles.light;
 
   useEffect(() => {
-    axios.get('http://192.168.234.232:8080/allholdings')
+    axios.get('http://192.168.30.73:8080/allholdings')
       .then(response => {
         setAllHoldings(response.data);
-        // console.log(response.data);
       })
       .catch(() => {
         Alert.alert('Failed to fetch holdings. Please try again later.');
@@ -41,14 +43,14 @@ export default function Holdings() {
   };
 
   return (
-    <ScrollView style={{ backgroundColor: '#fff' }}>
+    <ScrollView style={isDark}>
       <View style={styles.container}>
-        <Text style={styles.title}>Holdings ({allHoldings.length})</Text>
+        <Text style={[styles.title,isDark]}>Holdings ({allHoldings.length})</Text>
         <ScrollView>
           <View>
-            <View style={[styles.row, styles.headerRow]}>
-              <Text style={styles.headerCell}>Instrument</Text>
-              <Text style={[styles.headerCell,{textAlign:'right'}]}>Cur. val</Text>
+            <View style={[styles.row, styles.shadowBox,isDark]}>
+              <Text style={[styles.headerCell, isDark]}>Instrument</Text>
+              <Text style={[styles.headerCell,{textAlign:'right'},isDark]}>Cur. val</Text>
             </View>
 
             {allHoldings.map((stock, index) => {
@@ -59,8 +61,8 @@ export default function Holdings() {
 
               return (
                 <TouchableOpacity key={index} onPress={() => showDetails(stock)}>
-                  <View style={styles.shadowBox}>
-                    <Text style={styles.cell}>{stock.name}</Text>
+                  <View style={[styles.shadowBox,isDark,{backgroundColor: isDarkMode ? '#1e1e1e' : '#fff'}]}>
+                    <Text style={[styles.cell,{color: isDarkMode ? '#fff' : '#000'}]}>{stock.name}</Text>
                     <Text style={[styles.cell,{textAlign:'right'},profClass]}>{stock.price.toFixed(2)}</Text>
                   </View>
                 </TouchableOpacity>
@@ -90,22 +92,56 @@ export default function Holdings() {
 }
 
 const styles = StyleSheet.create({
-  container: { padding: 16 },
-  title: { fontSize: 18, fontWeight: 'bold', marginBottom: 12 },
-  tableContainer: { borderWidth: 1, borderColor: '#ccc' },
+  dark:{
+    backgroundColor: '#000',
+    color: '#fff'
+  },
+  light:{
+    backgroundColor: '#fff',
+    color: '#000'
+  },
+  container: {
+    padding: 16 
+  },
+  title: { 
+    fontSize: 18, 
+    fontWeight: 'bold', 
+    marginBottom: 12 
+  },
+  tableContainer: { 
+    borderWidth: 1, 
+    borderColor: '#ccc' 
+  },
   row: {
     flexDirection: 'row',
     padding: 6,
-    height: 50,
+    // height: 50,
     marginTop : 10,
   },
-  headerRow: { backgroundColor: '#fff' },
-  headerCell: { fontWeight: 'bold', width: 170, padding: 8 },
-  cell: { width: 170, padding: 5, backgroundColor: '#fff' },
-  profit: { color: 'green' },
-  loss: { color: 'red' },
+  headerRow: { 
+    backgroundColor: '#000' 
+  },
+  headerCell: { 
+    fontWeight: 'bold', 
+    width: 170, 
+    padding: 8,
+  },
+  cell: { 
+    width: 170, 
+    padding: 5,
+  },
+  profit: { 
+    color: 'green',
+  },
+  loss: { 
+    color: 'red',
+  },
   overlay: {
-    position: "absolute", top: 0, bottom: 0, left: 0, right: 0,
+    position: "absolute", 
+    top: 0, 
+    bottom: 0, 
+    left: 0, 
+    right: 0,
     backgroundColor: "rgba(0,0,0,0.3)"
   },
   sheet: {
@@ -121,11 +157,17 @@ const styles = StyleSheet.create({
   shadowBox: {
     marginTop: 5,
     flexDirection: 'row',
-    backgroundColor: "#fff",
     padding: 16,
     borderRadius: 10,
     elevation: 5,
   },
-  sheetTitle: { fontSize: 20, fontWeight: 'bold', marginBottom: 10 },
-  detail: { fontSize: 16, marginBottom: 6 }
+  sheetTitle: { 
+    fontSize: 20, 
+    fontWeight: 'bold', 
+    marginBottom: 10 
+  },
+  detail: { 
+    fontSize: 16, 
+    marginBottom: 6,
+  }
 });

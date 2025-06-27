@@ -3,12 +3,11 @@ import { View, Text, StyleSheet, Switch, TouchableOpacity, Image } from 'react-n
 import { Avatar } from 'react-native-elements';
 import { Ionicons, MaterialIcons, FontAwesome } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { ThemeContext } from '../../ThemeContext';
 
 export default function Account ({user}) {
   const navigation = useNavigation();
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  const toggleTheme = () => setIsDarkMode(!isDarkMode);
+  const { isDarkMode, toggleTheme } = useContext(ThemeContext);
 
   const styles = createStyles(isDarkMode);
 

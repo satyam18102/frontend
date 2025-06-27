@@ -12,7 +12,7 @@ export default function Orders() {
   const translateY = useRef(new Animated.Value(Dimensions.get("window").height)).current;
 
   useEffect(() => {
-    axios.get('http://192.168.234.232:8080/allOrders')
+    axios.get('http://192.168.30.73:8080/allOrders')
       .then(response => {
         console.log([response.data])
         const res = response.data;
@@ -78,7 +78,7 @@ export default function Orders() {
               <Text style={styles.detail}>Quantity: {selectedStock.qty}</Text>
               <Text style={styles.detail}>Average Cost: ₹{selectedStock.avg}</Text>
               <Text style={styles.detail}>LTP: ₹{selectedStock.price}</Text>
-              <Text style={[styles.detail,{color:'green'}]}>BUY Order</Text>
+              <Text style={[styles.detail,{color:'green'}]}>{selectedStock.type} Order</Text>
             </>
           )}
         </Animated.View>

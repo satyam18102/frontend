@@ -4,14 +4,14 @@ import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 
 
-export default function NseMostActive() {
+export default function BseMostActive() {
 
 const navigation = useNavigation();
     const [response, setResponse ] = React.useState([]);
     const [loading, setLoading ] = React.useState(true);
 const options = {
   method: 'GET',
-  url: 'https://indian-stock-exchange-api2.p.rapidapi.com/NSE_most_active',
+  url: 'https://indian-stock-exchange-api2.p.rapidapi.com/BSE_most_active',
   headers: {
     'x-rapidapi-key': '27b9a3dfabmshad3df316b8e8c26p1cb953jsn058b23c43f16',
     'x-rapidapi-host': 'indian-stock-exchange-api2.p.rapidapi.com'
@@ -19,25 +19,26 @@ const options = {
 };
 
 async function fetchData() {
-	try {
+    try {
     console.log('Fetching data from NSE Most Active Stocks API...');
-		const response = await axios.request(options);
+        const response = await axios.request(options);
     setResponse(response.data);
-		console.log(response.data);
+        console.log(response.data);
     setLoading(false)
-	} catch (error) {
-		console.error(error);
-	}
+    } catch (error) {
+        console.error(error);
+    }
 }
 useEffect(() => {
   fetchData();
 }
 , []);
 
+
 if(loading){
   return(
     <View>
-      <ActivityIndicator size="large" color="#0000ff" style={{ marginVertical: 10 }} />
+        <ActivityIndicator size="large" color="#0000ff" style={{ marginVertical: 10 }} />
       <Text style={{fontSize:25,textAlign:'center',marginTop:25,fontWeight:'bold'}}>Loading</Text>
     </View>
   )
@@ -56,7 +57,7 @@ if(loading){
     
                 return (
                     <View key={index} style={{borderBottomWidth: 1,paddingBottom: 15,borderBottomColor: '#ccc',}}>
-                      <TouchableOpacity onPress={() => navigation.navigate('Details', { item: stock })}>
+                      <TouchableOpacity onPress={() => navigation.navigate('Details', { item: stock.company })}>
                   <View style={{marginTop: 15, flexDirection: 'row', justifyContent: 'space-between'}}>
                           <View style={styles.cell}>
                               <Text style={{fontSize:16, fontFamily:'Poppins-Regular' , marginTop:5,}} >{stock.company.toUpperCase()}</Text>

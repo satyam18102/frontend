@@ -18,7 +18,7 @@ export default function Graph(props) {
       filter: "price",
     },
     headers: {
-      'x-rapidapi-key': '18b9ba3ca9msh41b67661d5a89fdp152144jsn18b8312cb79d',
+      'x-rapidapi-key': '9fb61eb6cbmsh7a1d1cfcd3f6890p13f990jsn45eb188c1a89',
       'x-rapidapi-host': 'indian-stock-exchange-api2.p.rapidapi.com',
     },
   };
@@ -51,8 +51,9 @@ export default function Graph(props) {
   
   
   return (
-      <ScrollView>
-    <View>
+      // <ScrollView>
+    <View style={{padding:10}}>
+      {/* <Text style={{ textAlign: "center", marginBottom: 10 }}>{props.name} Price Chart</Text> */}
       <LineChart
         data={chartData}
         thickness={2}
@@ -72,6 +73,6 @@ export default function Graph(props) {
         startOpacity={0.4}
         endOpacity={0.1}
       />
-    </View></ScrollView>
+    </View>
   );
 }

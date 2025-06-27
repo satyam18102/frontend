@@ -18,7 +18,7 @@ export default function LoginScreen ()  {
       email: email,
       password: password,
     };
-    axios.post('http://192.168.234.232:8080/login',userData).then((res)=>{
+    axios.post('http://192.168.30.73:8080/login',userData).then((res)=>{
       if(res.data.status === 'ok'){
         navigation.replace('MainApp');
       }else{

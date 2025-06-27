@@ -1,4 +1,4 @@
-import { Text,View, StyleSheet,ScrollView, TouchableOpacity } from "react-native";
+import { Text,View, StyleSheet,ScrollView } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { Button } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
@@ -6,33 +6,29 @@ import axios from "axios";
 import Graph from "./Graph";
 import { useEffect, useState } from "react";
 
-export default function Details() {
+export default function ShockersDetails() {
   const [values,setValues]=useState([]);
   const route = useRoute();
   const {item} = route.params;
   const navigation = useNavigation();
-  const exchange = item.ticker.includes(".NS") ? "NSE" : "BSE";
-  const isProfit = item.net_change>=0 ? styles.profit : styles.loss;
-  const isLoss = item.net_change>=0 ? '+' : '';
+  const exchange = "NSE";
+  const isProfit = item.netChange>=0 ? styles.profit : styles.loss;
+  const isLoss = item.netChange>=0 ? '+' : '';
 
-  function handleWatch () {
-    const userData = {
-      name: item.company,
-      price: item.price,
-    };
-  axios.post('http://192.168.30.73:8080/addWatchlist',userData).then((res)=>{
-        console.log(userData)
-      if(res.data.status === 'ok'){
-        alert("Added to Watchlist")
-        navigation.replace('MainApp');
-      }else{
-        alert('Order Declined');
-      }
-    }).catch((error) => {
-      console.error('Error during login:', error);
-      alert('An error occurred during login. Please try again.');
-    });
+      const options = {
+          method: 'GET',
+          url: 'https://indian-stock-exchange-api2.p.rapidapi.com/historical_data',
+          params: {
+              stock_name: item.displayName,
+              period: '1m',
+      filter: 'price'
+  },
+  headers: {
+      'x-rapidapi-key': '27b9a3dfabmshad3df316b8e8c26p1cb953jsn058b23c43f16',
+      'x-rapidapi-host': 'indian-stock-exchange-api2.p.rapidapi.com'
+  }
   };
+
 
 
   return (
@@ -40,18 +36,18 @@ export default function Details() {
     <View style={styles.container}>
         <View style={styles.heading}>
             <Graph name={item.company} />
-            <Text style={{ fontSize:18, textAlign:'left', marginTop: 10 }}>{item.company.toUpperCase()}</Text>
+            <Text style={{ fontSize:18, textAlign:'left', marginTop: 10 }}>{item.displayName.toUpperCase()}</Text>
                 <Text style={{textAlign:'left', fontWeight: "bold", display: 'flex', fontSize: 14}} >{exchange}</Text>
             <View style={{flexDirection: 'row',marginBottom: 10, marginTop: 10}}>
                 <Text style={{display: 'flex', fontSize: 22}} >{item.price}</Text>
-                <Text style={[{textAlign:'left', alignContent:'center',alignSelf:'center', marginLeft:15, display: 'flex', fontSize: 14},isProfit]} >{isLoss}{item.net_change}({isLoss}{item.percent_change}%)</Text>
+                <Text style={[{textAlign:'left', alignContent:'center',alignSelf:'center', marginLeft:15, display: 'flex', fontSize: 14},isProfit]} >{isLoss}{item.netChange}({isLoss}{item.percentChange}%)</Text>
             </View>
         </View>
         <View style={{marginTop:10,flexDirection: 'row', justifyContent: 'space-between'}}>
             <Button style={styles.buyBtn} mode="contained" onPress={() => navigation.navigate('Buy',{ item: item })}>
               <Text>BUY</Text>
             </Button>
-            <Button style={styles.sellBtn} mode="contained" onPress={() => navigation.navigate('Sell',{ item: item })}>
+            <Button style={styles.sellBtn} mode="contained" onPress={() => navigation.navigate('Sell',{item : item})}>
               <Text>SELL</Text>
             </Button>
         </View>
@@ -66,20 +62,14 @@ export default function Details() {
             <Text style={styles.text}>Close <Text style={{fontWeight:'bold'}}>{item.close}</Text></Text>
             <Text style={styles.text}>Low  <Text style={{fontWeight:'bold'}}>{item.low}</Text></Text>
             <Text style={styles.text}>Upper Limit  <Text style={{fontWeight:'bold'}}>{item.up_circuit_limit}</Text></Text>
-            <Text style={styles.text}>52 Week High  <Text style={{fontWeight:'bold'}}>{item['52_week_high']}</Text></Text>
+            {/* <Text style={styles.text}>52 Week High  <Text style={{fontWeight:'bold'}}>{stock['52_week_high']}</Text></Text> */}
             <Text style={styles.text}>Volume  <Text style={{fontWeight:'bold'}}>{item.volume}</Text></Text>
         </View>
         </View>
-        <TouchableOpacity onPress={() => handleWatch()}>
-        <Button style={styles.watch} mode="contained" >
-              <Text>Add to Watchlist</Text>
-            </Button>
-        </TouchableOpacity>
     </View>
     </ScrollView>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -120,10 +110,5 @@ const styles = StyleSheet.create({
   },
   profit:{
     color: 'green'
-  },
-  watch:{
-    marginTop: 10,
-    backgroundColor: '#548DF3', // Blue color for the button
-    padding: 10,  
   },
 });

@@ -2,15 +2,18 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
+import { ThemeContext } from '../../ThemeContext';
 
 export default function WatchNav () {
+  const { isDarkMode } = React.useContext(ThemeContext);
     const navigation = useNavigation();
+    const isDark = isDarkMode ? styles.light : styles.light;
   return (
-    <View style={styles.container}>
+    <View style={[styles.container,isDark]}>
         <TouchableOpacity onPress={() => navigation.navigate('Watchlist')}>
-            <View style={styles.option}>
-                <Ionicons name='bookmark-outline' size={50} style={styles.icon} />
-                <Text style={styles.label}>WatchList</Text>
+            <View style={[styles.option,isDark]}>
+                <Ionicons name='bookmark-outline' size={50} style={[styles.icon]} />
+                <Text style={[styles.label,{color: isDark ?'##000' : '#000'}]}>WatchList</Text>
             </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Positions')}>
@@ -49,15 +52,22 @@ const styles = StyleSheet.create({
     marginTop: 8,
     fontSize: 14,
     fontWeight: '600',
-    color: '#333',
   },
   
   shadowBox: {
     marginTop:20,
     flexDirection: 'row',
-    backgroundColor: "#fff",
+    backgroundColor: "#1e1e1e",
     padding: 16,
     borderRadius: 10,
     elevation: 5,
+  },
+  dark:{
+    backgroundColor: '#1e1e1e',
+    color: '#fff'
+  },
+  light:{
+    backgroundColor: '#fff',
+    color: '#000'
   },
 });

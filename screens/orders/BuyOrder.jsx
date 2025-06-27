@@ -28,17 +28,14 @@ export default function BuyOrder() {
       qty: quantity,
       price: item.price,
       avg: item.price,
-      owner: 'CP'    
+      type: 'BUY',
+      net: item.net_change,
+      day: item.percent_change,
     };
-    axios.post('http://192.168.234.232:8080/newOrder',userData).then((res)=>{
+    axios.post('http://192.168.30.73:8080/newOrder',userData).then((res)=>{
         console.log(userData)
-      if(res.data.status === 'ok'){
         Alert.alert("Order Successfull")
         navigation.replace('MainApp');
-      }else{
-        console.log('Login failed:', res.data.error);
-        alert('Invalid credentials');
-      }
     }).catch((error) => {
       console.error('Error during login:', error);
       alert('An error occurred during login. Please try again.');
