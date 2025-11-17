@@ -32,7 +32,7 @@ export default function BuyOrder() {
       net: item.net_change,
       day: item.percent_change,
     };
-    axios.post('http://192.168.30.73:8080/newOrder',userData).then((res)=>{
+    axios.post('http://192.168.234.232:8080/newOrder',userData).then((res)=>{
         console.log(userData)
       if(res.data.status === 'ok'){
         Alert.alert("Order Successfull")

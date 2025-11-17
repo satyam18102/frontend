@@ -82,7 +82,7 @@ function sendOtp () {
       name:name,
       email: email,
     };
-    axios.get('http://192.168.30.73:8080/verify',{params : userData}).then((res)=>{
+    axios.get('http://192.168.234.232:8080/verify',{params : userData}).then((res)=>{
       if(res.data.status === 'ok'){
         setOtp(res.data.otp)
         setOtpSent(true)

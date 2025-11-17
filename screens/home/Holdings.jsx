@@ -15,7 +15,7 @@ export default function Holdings() {
   const isDark = isDarkMode ? styles.dark : styles.light;
 
   useEffect(() => {
-    axios.get('http://192.168.30.73:8080/allholdings')
+    axios.get('http://192.168.234.232:8080/allholdings')
       .then(response => {
         setAllHoldings(response.data);
       })
