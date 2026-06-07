@@ -12,7 +12,7 @@ export default function Orders() {
   const translateY = useRef(new Animated.Value(Dimensions.get("window").height)).current;
 
   useEffect(() => {
-    axios.get('http://192.168.234.232:8080/allOrders')
+    axios.get('http://192.168.39.232:8080/allOrders')
       .then(response => {
         console.log([response.data])
         const res = response.data;

@@ -53,7 +53,7 @@ export default function Graph(props) {
   return (
       // <ScrollView>
     <View style={{padding:10}}>
-      {/* <Text style={{ textAlign: "center", marginBottom: 10 }}>{props.name} Price Chart</Text> */}
+      <Text style={{ textAlign: "center", marginBottom: 10 }}>{props.name} Price Chart</Text>
       <LineChart
         data={chartData}
         thickness={2}

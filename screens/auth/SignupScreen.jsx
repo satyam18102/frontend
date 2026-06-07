@@ -108,7 +108,7 @@ function sendOtp () {
       email: email,
       password: password,
     };
-    axios.post('http://192.168.30.73:8080/register',userData).then((res)=>{
+    axios.post('http://192.168.39.232:8080/register',userData).then((res)=>{
       if(res.data.status === 'ok'){
         navigation.replace('Login');
       }else{
